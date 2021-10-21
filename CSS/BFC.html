@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BFC</title>
+</head>
+<body>
+    <!-- 文档流分为普通文档流、定位流、浮动流 -->
+    <!-- BFC可以理解为一个盒子，盒子里面的元素不会对外面的元素产生影响，外面的元素也不会对里面的元素产生影响 -->
+    <!-- 触发BFC： -->
+    <!-- 
+        float: 不是none;  为left | right
+        overflow: 不是visible;  为hidden | scroll | auto
+        display: 不是block | inline | none;  为inline-block | table-cell | table-caption | flex | grid
+        position: 不是relative;  为absolute | fixed
+    -->
+    <div>
+        <style>
+            .box {
+                width: 100px;
+                height: 100px;
+            }
+            .box1 {
+                margin-bottom: 20px;
+                background-color: red;
+            }
+            .box2 {
+                margin-top: 20px;
+                background-color: green;
+            }
+        </style>
+        <p>margin重合:</p>
+        <div class="box box1"></div>
+        <div class="box box2"></div>
+    </div>
+    <div>
+        <style>
+            .container {
+                overflow: hidden;
+            }
+            .cox {
+                width: 100px;
+                height: 100px;
+            }
+            .cox1 {
+                margin-bottom: 20px;
+                background-color: red;
+            }
+            .cox2 {
+                margin-top: 20px;
+                background-color: green;
+            }
+        </style>
+        <p>解决margin重合:</p>
+        <div class="container">
+            <div class="cox cox1"></div>
+        </div>
+        <div class="container">
+            <div class="cox cox2"></div>
+        </div>
+    </div>
+    <div>
+        <style>
+            .dox {
+                width: 100px;
+                height: 100px;
+                background-color: lightcoral;
+            }
+            .dox1 {
+                width: 50px;
+                height: 50px;
+                margin-top: 50px;
+                background-color: lightgreen;
+            }
+        </style>
+        <p>margin塌陷:</p>
+        <div class="dox">
+            <div class="dox1"></div>
+        </div>
+    </div>
+    <div>
+        <style>
+            .eox {
+                display: inline-block;
+                width: 100px;
+                height: 100px;
+                background-color: lightcoral;
+                /* 不触发BFC，加个border这种方式也是可以解决这个问题的 */
+                /* border-top: 1px solid black; */
+            }
+            .eox1 {
+                width: 50px;
+                height: 50px;
+                margin-top: 50px;
+                background-color: lightgreen;
+            }
+        </style>
+        <p>解决margin塌陷:</p>
+        <div class="eox">
+            <div class="eox1"></div>
+        </div>
+    </div>
+    <div>
+        <style>
+            .fox {
+                width: 100px;
+                background-color: lightgreen;
+                border: 1px solid black;
+            }
+            .fox1 {
+                float: left;
+                width: 100px;
+                height: 100px;
+            }
+        </style>
+        <p>高度坍塌问题:</p>
+        <div class="fox">
+            <div class="fox1"></div>
+        </div>
+    </div>
+    <div>
+        <style>
+            .gox {
+                /* float: left; */
+                display: inline-block;
+                width: 100px;
+                background-color: lightgreen;
+                border: 1px solid black;
+            }
+            .gox1 {
+                float: left;
+                width: 100px;
+                height: 100px;
+                background-color: lightpink;
+            }
+        </style>
+        <p>解决高度坍塌问题:</p>
+        <div class="gox">
+            <div class="gox1"></div>
+        </div>
+    </div>
+    <div>
+        <style>
+            .wrap {
+                width: 600px;
+            }
+            .aside {  
+                width: 100px;  
+                height: 200px;  
+                float: left;  
+                background: black;  
+            }  
+            .main {
+                overflow: hidden;
+                height:200px;  
+                background-color:red;  
+            }
+        </style>
+        <p>利用BFC不会与浮动元素重叠创建自适应两栏布局:</p>
+        <div class="wrap">
+            <div class="aside"></div>  
+            <div class="main"></div>
+        </div>
+    </div>
+    <script>
+
+    </script>
+</body>
+</html>
